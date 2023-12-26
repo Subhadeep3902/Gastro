@@ -1,0 +1,51 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"
+    ></script>
+  </head>
+  <body>
+    <Header title={SITE_TITLE} />
+    <main>
+      <h1>Hello, Fellas! 👋</h1>
+      <div class="hero">
+        <video autoplay muted loop>
+          <source src="/assets/loki.webm" type="video/mp4" />
+      </div>
+      <p>
+        Welcome to the official Blastro blog page⚡. This is made by <a
+          href="https://bento.me/subhadeep3902">Subhadeep</a
+        > with the help of an <a href="https://astro.build/">Astro</a> template.
+      </p>
+      <p>You can find cool blogs here🔥 :)</p>
+      <a href="/submission">
+        <button>Submit your Blog</button>
+      </a>
+    </main>
+    <Footer />
+    <script>
+      declare global {
+        interface Window {
+          netlifyIdentity: any;
+        }
+      }
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", (user: any) => {
+          if (!user) {
+            window.netlifyIdentity.on("login", () => {
+              document.location.href = "/admin/";
+            });
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
